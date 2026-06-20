@@ -3,8 +3,18 @@ import React from "react";
 const ResumeApp = () => {
   return (
     <div className="space-y-4">
-      
-      <h2 className="text-2xl font-bold">Resume</h2>
+
+      <div className="bg-gray-100 p-4 rounded-xl">
+        <h3 className="font-semibold">
+          Resume Overview
+        </h3>
+
+        <p className="text-sm text-gray-600 mt-2">
+          Full Stack Developer skilled in
+          React, Node.js, Express.js,
+          PostgreSQL and MongoDB.
+        </p>
+      </div>
 
       {/* Full Height Viewer */}
       <div className="w-full h-[70vh] border rounded-lg overflow-hidden shadow">

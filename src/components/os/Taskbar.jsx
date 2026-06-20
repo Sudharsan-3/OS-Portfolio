@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useWindow } from "../../context/WindowContext";
-
+import {
+  Home,
+  FolderOpen,
+  Moon,
+} from "lucide-react";
 const Taskbar = () => {
   const [time, setTime] = useState("");
 
@@ -30,7 +34,26 @@ const Taskbar = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-12 bg-black/70 backdrop-blur-md flex items-center justify-between px-4 text-white">
+    <div className="
+fixed
+bottom-3
+left-1/2
+-translate-x-1/2
+h-14
+px-4
+rounded-2xl
+bg-black/60
+backdrop-blur-xl
+border
+border-white/10
+flex
+items-center
+justify-between
+text-white
+w-[95%]
+max-w-6xl
+z-50
+">
 
       {/* Left Side */}
       <div className="flex items-center gap-2">
@@ -40,7 +63,7 @@ const Taskbar = () => {
           onClick={() => openWindow("StartHere")}
           className="px-3 py-1 bg-white/10 rounded hover:bg-white/20"
         >
-          Start
+          <Home size={18} />
         </button>
 
         {/* Open Windows */}
@@ -49,15 +72,23 @@ const Taskbar = () => {
             key={window.name}
             onClick={() => restoreWindow(window.name)}
             className={`
-              px-3 py-1 rounded text-sm
-              ${
-                window.minimized
-                  ? "bg-gray-700"
-                  : "bg-blue-600"
+              px-3 py-1
+rounded-lg
+text-sm
+transition-all
+duration-200
+hover:scale-105
+              ${window.minimized
+                ? "bg-gray-700"
+                : "bg-blue-600"
               }
             `}
           >
-            {window.name}
+            {
+              window.name === "ProjectDetails"
+                ? window.data?.title
+                : window.name
+            }
           </button>
         ))}
       </div>
