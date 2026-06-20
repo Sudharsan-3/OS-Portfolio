@@ -1,5 +1,6 @@
 import React from "react";
 import { useWindow } from "../../context/WindowContext";
+import { motion } from "framer-motion";
 
 const Window = ({ windowData, children }) => {
   const {
@@ -19,13 +20,28 @@ const Window = ({ windowData, children }) => {
       : name;
 
   return (
-    <div
+    <motion.div
+      style={{ x: "-50%" }}
+      initial={{
+        opacity: 0,
+        scale: 0.97,
+      }}
+
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+
+      transition={{
+        duration: 0.18,
+        ease: "easeOut",
+      }}
       className={`
-        bg-white shadow-2xl absolute flex flex-col
-        ${maximized
+    bg-white shadow-2xl absolute flex flex-col
+    ${maximized
           ? "top-0 left-0 w-screen h-screen rounded-none"
           : `
-top-20 left-1/2 -translate-x-1/2
+top-20 left-1/2
 ${isProjectWindow
             ? "w-[95%] lg:w-[1100px]"
             : "w-[90%] sm:w-[600px] lg:w-[800px]"
@@ -33,7 +49,7 @@ ${isProjectWindow
 rounded-xl
 `
         }
-      `}
+  `}
     >
       {/* Title Bar */}
       <div className="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
@@ -85,7 +101,7 @@ rounded-xl
       >
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
