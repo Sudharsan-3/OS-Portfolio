@@ -3,19 +3,27 @@ import { useWindow } from "../../context/WindowContext";
 
 const Taskbar = () => {
   const [time, setTime] = useState("");
-  const { openWindow } = useWindow();
+
+  const {
+    windows,
+    restoreWindow,
+    openWindow,
+  } = useWindow();
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const formatted = now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      setTime(formatted);
+
+      setTime(
+        now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
     };
 
     updateTime();
+
     const interval = setInterval(updateTime, 60000);
 
     return () => clearInterval(interval);
@@ -23,36 +31,41 @@ const Taskbar = () => {
 
   return (
     <div className="fixed bottom-0 left-0 w-full h-12 bg-black/70 backdrop-blur-md flex items-center justify-between px-4 text-white">
-      
-      {/* Left - Start */}
-      <div className="flex gap-3">
-    <span
-      onClick={() => openWindow("Projects")}
-      className="cursor-pointer hover:scale-110"
-    >
-      📁
-    </span>
 
-    <span
-      onClick={() => openWindow("Resume")}
-      className="cursor-pointer hover:scale-110"
-    >
-      📄
-    </span>
+      {/* Left Side */}
+      <div className="flex items-center gap-2">
 
-    <span
-      onClick={() => openWindow("Contact")}
-      className="cursor-pointer hover:scale-110"
-    >
-      📞
-    </span>
-  </div>
+        {/* Start Button */}
+        <button
+          onClick={() => openWindow("StartHere")}
+          className="px-3 py-1 bg-white/10 rounded hover:bg-white/20"
+        >
+          Start
+        </button>
 
-      {/* Right - Time */}
+        {/* Open Windows */}
+        {windows.map((window) => (
+          <button
+            key={window.name}
+            onClick={() => restoreWindow(window.name)}
+            className={`
+              px-3 py-1 rounded text-sm
+              ${
+                window.minimized
+                  ? "bg-gray-700"
+                  : "bg-blue-600"
+              }
+            `}
+          >
+            {window.name}
+          </button>
+        ))}
+      </div>
+
+      {/* Right Side */}
       <div className="text-sm">
         {time}
       </div>
-
     </div>
   );
 };

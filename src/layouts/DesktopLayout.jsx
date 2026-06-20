@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import Desktop from "../components/os/Desktop";
 import Taskbar from "../components/os/Taskbar";
 import Window from "../components/os/Window";
+
 import { useWindow } from "../context/WindowContext";
-import { useEffect } from "react";
 
 // Apps
 import AboutApp from "../apps/About/AboutApp";
@@ -14,29 +15,38 @@ import HireApp from "../apps/Hire/HireApp";
 import StartHere from "../apps/StartHere/StartHere";
 
 const DesktopLayout = () => {
-  const { activeWindow, closeWindow, openWindow } = useWindow();
+  const { windows, openWindow } = useWindow();
 
-useEffect(() => {
-  if (!activeWindow) {
-    openWindow("StartHere");
-  }
-}, []);
-  
+  useEffect(() => {
+    const alreadyOpen = windows.some(
+      (window) => window.name === "StartHere"
+    );
 
-  const renderApp = () => {
-    switch (activeWindow) {
+    if (!alreadyOpen) {
+      openWindow("StartHere");
+    }
+  }, []);
+
+  const renderApp = (name) => {
+    switch (name) {
       case "StartHere":
         return <StartHere />;
+
       case "About":
         return <AboutApp />;
+
       case "Projects":
         return <ProjectsApp />;
+
       case "Contact":
         return <ContactApp />;
+
       case "Resume":
         return <ResumeApp />;
+
       case "Hire Me":
         return <HireApp />;
+
       default:
         return null;
     }
@@ -45,19 +55,20 @@ useEffect(() => {
   return (
     <div className="w-screen h-screen overflow-hidden bg-black relative">
 
-      {/* Desktop */}
       <Desktop />
 
-      {/* Taskbar */}
+      {windows
+        .filter((window) => !window.minimized)
+        .map((window) => (
+          <Window
+            key={window.name}
+            windowData={window}
+          >
+            {renderApp(window.name)}
+          </Window>
+        ))}
+
       <Taskbar />
-
-      {/* Window */}
-      {activeWindow && (
-        <Window title={activeWindow} onClose={closeWindow}>
-          {renderApp()}
-        </Window>
-      )}
-
     </div>
   );
 };
