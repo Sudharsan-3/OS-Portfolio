@@ -47,8 +47,6 @@ const DesktopLayout = () => {
 
       case "Hire Me":
         return <HireApp />;
-      case "Projects":
-        return <ProjectsApp />;
       case "ProjectDetails":
         return (
           <ProjectDetailsWindow
@@ -69,7 +67,7 @@ const DesktopLayout = () => {
         .filter((window) => !window.minimized)
         .map((window) => (
           <Window
-            key={window.name}
+          key={`${window.name}-${window.data?.title || ""}`}
             windowData={window}
           >
             {renderApp(window)}

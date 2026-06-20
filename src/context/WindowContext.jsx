@@ -5,6 +5,18 @@ const WindowContext = createContext();
 export const WindowProvider = ({ children }) => {
   const [windows, setWindows] = useState([]);
 
+  const focusWindow = (name) => {
+    setWindows((prev) => {
+      const target = prev.find((w) => w.name === name);
+  
+      if (!target) return prev;
+  
+      const others = prev.filter((w) => w.name !== name);
+  
+      return [...others, target];
+    });
+  };
+
   const openWindow = (name, data = null) => {
     setWindows((prev) => {
       const existing = prev.find(
@@ -14,14 +26,21 @@ export const WindowProvider = ({ children }) => {
       );
   
       if (existing) {
-        return prev.map((w) =>
-          w.name === name
-            ? {
-                ...w,
-                minimized: false,
-              }
-            : w
+        const others = prev.filter(
+          (w) =>
+            !(
+              w.name === name &&
+              JSON.stringify(w.data) === JSON.stringify(data)
+            )
         );
+      
+        return [
+          ...others,
+          {
+            ...existing,
+            minimized: false,
+          },
+        ];
       }
   
       return [
@@ -66,16 +85,21 @@ export const WindowProvider = ({ children }) => {
   };
 
   const restoreWindow = (name) => {
-    setWindows((prev) =>
-      prev.map((w) =>
-        w.name === name
-          ? {
-              ...w,
-              minimized: false,
-            }
-          : w
-      )
-    );
+    setWindows((prev) => {
+      const target = prev.find((w) => w.name === name);
+  
+      if (!target) return prev;
+  
+      const others = prev.filter((w) => w.name !== name);
+  
+      return [
+        ...others,
+        {
+          ...target,
+          minimized: false,
+        },
+      ];
+    });
   };
 
   return (
@@ -87,6 +111,7 @@ export const WindowProvider = ({ children }) => {
         minimizeWindow,
         maximizeWindow,
         restoreWindow,
+        focusWindow,
       }}
     >
       {children}

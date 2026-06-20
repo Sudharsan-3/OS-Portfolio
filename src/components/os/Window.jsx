@@ -7,6 +7,7 @@ const Window = ({ windowData, children }) => {
     closeWindow,
     minimizeWindow,
     maximizeWindow,
+    focusWindow,
   } = useWindow();
 
   const { name, maximized, data } = windowData;
@@ -21,7 +22,12 @@ const Window = ({ windowData, children }) => {
 
   return (
     <motion.div
-      style={{ x: "-50%" }}
+    onMouseDown={() => focusWindow(name)}
+    style={
+      maximized
+        ? {}
+        : { x: "-50%" }
+    }
       initial={{
         opacity: 0,
         scale: 0.97,
@@ -101,6 +107,7 @@ rounded-xl
       >
         {children}
       </div>
+      
     </motion.div>
   );
 };
