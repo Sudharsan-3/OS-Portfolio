@@ -5,6 +5,7 @@ import Taskbar from "../components/os/Taskbar";
 import Window from "../components/os/Window";
 
 import { useWindow } from "../context/WindowContext";
+import ProjectDetailsWindow from "../apps/Projects/ProjectDetailsWindow";
 
 // Apps
 import AboutApp from "../apps/About/AboutApp";
@@ -27,8 +28,8 @@ const DesktopLayout = () => {
     }
   }, []);
 
-  const renderApp = (name) => {
-    switch (name) {
+  const renderApp = (window) => {
+    switch (window.name) {
       case "StartHere":
         return <StartHere />;
 
@@ -46,7 +47,14 @@ const DesktopLayout = () => {
 
       case "Hire Me":
         return <HireApp />;
-
+      case "Projects":
+        return <ProjectsApp />;
+      case "ProjectDetails":
+        return (
+          <ProjectDetailsWindow
+            project={window.data}
+          />
+        );
       default:
         return null;
     }
@@ -64,7 +72,7 @@ const DesktopLayout = () => {
             key={window.name}
             windowData={window}
           >
-            {renderApp(window.name)}
+            {renderApp(window)}
           </Window>
         ))}
 

@@ -5,10 +5,14 @@ const WindowContext = createContext();
 export const WindowProvider = ({ children }) => {
   const [windows, setWindows] = useState([]);
 
-  const openWindow = (name) => {
+  const openWindow = (name, data = null) => {
     setWindows((prev) => {
-      const existing = prev.find((w) => w.name === name);
-
+      const existing = prev.find(
+        (w) =>
+          w.name === name &&
+          JSON.stringify(w.data) === JSON.stringify(data)
+      );
+  
       if (existing) {
         return prev.map((w) =>
           w.name === name
@@ -19,18 +23,18 @@ export const WindowProvider = ({ children }) => {
             : w
         );
       }
-
+  
       return [
         ...prev,
         {
           name,
+          data,
           minimized: false,
           maximized: false,
         },
       ];
     });
   };
-
   const closeWindow = (name) => {
     setWindows((prev) => prev.filter((w) => w.name !== name));
   };

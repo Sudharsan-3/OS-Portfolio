@@ -8,16 +8,30 @@ const Window = ({ windowData, children }) => {
     maximizeWindow,
   } = useWindow();
 
-  const { name, maximized } = windowData;
+  const { name, maximized, data } = windowData;
+
+  const isProjectWindow =
+    name === "ProjectDetails";
+
+  const title =
+    isProjectWindow
+      ? data?.title
+      : name;
 
   return (
     <div
       className={`
-        bg-white shadow-2xl overflow-hidden absolute
-        ${
-          maximized
-            ? "top-0 left-0 w-screen h-screen rounded-none"
-            : "top-20 left-1/2 -translate-x-1/2 w-[90%] sm:w-[600px] lg:w-[800px] rounded-xl"
+        bg-white shadow-2xl absolute flex flex-col
+        ${maximized
+          ? "top-0 left-0 w-screen h-screen rounded-none"
+          : `
+top-20 left-1/2 -translate-x-1/2
+${isProjectWindow
+            ? "w-[95%] lg:w-[1100px]"
+            : "w-[90%] sm:w-[600px] lg:w-[800px]"
+          }
+rounded-xl
+`
         }
       `}
     >
@@ -25,7 +39,7 @@ const Window = ({ windowData, children }) => {
       <div className="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
 
         <span className="font-medium">
-          {name}
+          {title}
         </span>
 
         <div className="flex gap-2">
@@ -60,9 +74,14 @@ const Window = ({ windowData, children }) => {
       {/* Content */}
       <div
         className={`
-          p-4 overflow-y-auto
-          ${maximized ? "h-[calc(100vh-48px)]" : "max-h-[70vh]"}
-        `}
+    p-4 overflow-y-auto pb-24
+    ${maximized
+            ? "h-[calc(100vh-96px)]"
+            : isProjectWindow
+              ? "h-[75vh]"
+              : "h-[60vh]"
+          }
+  `}
       >
         {children}
       </div>
