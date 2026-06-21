@@ -42,6 +42,7 @@ mb-4
           Full Stack Developer
         </p>
         <div className="flex gap-3 mt-3">
+
           <a
             href={profile.github}
             target="_blank"
@@ -59,6 +60,14 @@ mb-4
           >
             LinkedIn
           </a>
+
+          <a
+            href="mailto:sudharsan5470436@gmail.com"
+            className="px-4 py-2 bg-gray-700 text-white rounded-lg"
+          >
+            Email
+          </a>
+
         </div>
       </div>
 

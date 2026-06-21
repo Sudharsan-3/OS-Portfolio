@@ -1,63 +1,93 @@
-import React from "react";
-import { profile } from "../../data/profile";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { Mail } from "lucide-react";
-
+import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const ContactApp = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        alert("Message sent successfully!");
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        alert("Failed to send message");
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="text-gray-900 space-y-4">
 
-      <h2 className="text-2xl font-bold">Contact Me</h2>
+      <h2 className="text-2xl font-bold">
+        Feedback / Contact
+      </h2>
 
-      {/* Email */}
-      <div className="bg-gray-100 p-4 rounded-xl">
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-          <Mail size={18} />
-          <span>Email</span>
-        </div>
+      <p className="text-sm text-gray-600">
+        Send me a message — I’ll reply via email.
+      </p>
 
-        <a
-          href={`mailto:${profile.email}`}
-          className="text-blue-600 font-medium hover:underline"
+      <form onSubmit={sendEmail} className="space-y-3">
+
+        <input
+          name="name"
+          placeholder="Your Name"
+          value={form.name}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-lg"
+          required
+        />
+
+        <input
+          name="email"
+          placeholder="Your Email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-lg"
+          required
+        />
+
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={form.message}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-lg h-28"
+          required
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
         >
-          {profile.email}
-        </a>
-      </div>
+          {loading ? "Sending..." : "Send Message"}
+        </button>
 
-      {/* GitHub */}
-      <div className="bg-gray-100 p-4 rounded-xl">
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-          <FaGithub size={18} />
-          <span>GitHub</span>
-        </div>
-
-        <a
-          href={profile.github}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 font-medium hover:underline break-all"
-        >
-          Sudharsan-3
-        </a>
-      </div>
-      {/* LinkedIn */}
-      <div className="bg-gray-100 p-4 rounded-xl">
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-          <FaLinkedin size={18} />
-          <span>LinkedIn</span>
-        </div>
-
-        <a
-          href={profile.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 font-medium hover:underline break-all"
-        >
-          View LinkedIn Profile
-        </a>
-      </div>
-
+      </form>
     </div>
   );
 };

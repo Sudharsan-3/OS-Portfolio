@@ -10,7 +10,7 @@ const Desktop = () => {
     { name: "Projects", icon: <Folder size={32} /> },
     { name: "Resume", icon: <FileText size={32} /> },
     { name: "Contact", icon: <Phone size={32} /> },
-    { name: "Hire Me", icon: <Briefcase size={32} /> },
+    // { name: "Hire Me", icon: <Briefcase size={32} /> },
   ];
 
   return (
