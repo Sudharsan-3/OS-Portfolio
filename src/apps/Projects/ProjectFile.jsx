@@ -5,62 +5,56 @@ const ProjectFile = ({ project, onOpen }) => {
   return (
     <motion.div
       onClick={() => onOpen(project)}
-      whileHover={{ scale: 1.02, y: -4 }}
+      whileHover={{ scale: 1.03, y: -4 }}
       whileTap={{ scale: 0.98 }}
       className="
         group cursor-pointer
-        bg-white
-        border border-gray-200
-        rounded-2xl
-        overflow-hidden
-        shadow-sm
-        hover:shadow-xl
-        transition-all duration-200
+        rounded-xl overflow-hidden
+       border border-gray-200
+bg-white backdrop-blur-xl
+        hover:bg-white/10
+        transition-all
       "
     >
       {/* IMAGE */}
-      <div className="h-40 w-full overflow-hidden">
+      <div className="h-40 overflow-hidden">
         <img
           src={project.thumbnail}
           alt={project.title}
           className="
             w-full h-full object-cover
-            group-hover:scale-105
+            group-hover:scale-110
             transition-transform duration-300
           "
         />
       </div>
 
       {/* CONTENT */}
-      <div className="p-4">
-
-        <h3 className="font-semibold text-gray-900 text-base">
+      <div className="p-3">
+        <h3 className="font-semibold text-gray-900">
           {project.title}
         </h3>
 
-        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+        <p className="text-xs text-gray-600 mt-1 line-clamp-2">
           {project.shortDescription}
         </p>
 
-        {/* TECH */}
+        {/* TECH TAGS */}
         <div className="flex flex-wrap gap-1 mt-3">
-          {project.tech.slice(0, 3).map((tech) => (
+          {project.tech?.slice(0, 3).map((tech) => (
             <span
               key={tech}
               className="
                 text-[10px]
                 px-2 py-[2px]
                 rounded-full
-                bg-blue-50
-                text-blue-700
-                border border-blue-100
+               bg-gray-100 text-gray-700
               "
             >
               {tech}
             </span>
           ))}
         </div>
-
       </div>
     </motion.div>
   );
