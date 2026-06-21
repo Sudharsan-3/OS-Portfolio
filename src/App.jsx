@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import BootScreen from "./components/BootScreen";
 import DesktopLayout from "./layouts/DesktopLayout";
-import MobileLayout from "./layouts/MobileLayout";
-import useDeviceType from "./hooks/useDeviceType";
 
-const App = () => {
-  const device = useDeviceType();
+function App() {
+  const [booted, setBooted] = useState(false);
 
-  if (device === "mobile") {
-    return <MobileLayout />;
-  }
-
-  // tablet + desktop use same layout (simplified desktop)
-  return <DesktopLayout />;
-};
+  return (
+    <>
+      {!booted ? (
+        <BootScreen onFinish={() => setBooted(true)} />
+      ) : (
+        <DesktopLayout />
+      )}
+    </>
+  );
+}
 
 export default App;
