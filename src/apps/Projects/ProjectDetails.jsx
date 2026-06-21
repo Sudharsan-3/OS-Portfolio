@@ -6,71 +6,67 @@ const ProjectDetails = ({ project }) => {
   return (
     <div className="space-y-6 text-gray-900">
 
-      {/* HERO */}
-      <div className="rounded-2xl overflow-hidden border shadow-sm">
+      {/* HERO IMAGE */}
+      <div className="rounded-xl overflow-hidden border border-gray-200 bg-white">
         <img
           src={project.thumbnail}
           alt={project.title}
-          className="w-full h-60 object-cover"
+          className="w-full h-56 object-cover"
         />
       </div>
 
-      {/* TITLE */}
+      {/* TITLE + DESCRIPTION */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">
+        <h2 className="text-2xl font-bold text-gray-900">
           {project.title}
         </h2>
 
-        <p className="text-gray-600 mt-2">
+        <p className="mt-2 text-gray-600 leading-relaxed">
           {project.fullDescription}
         </p>
       </div>
 
-      {/* TECH */}
-      <div className="p-4 rounded-xl border bg-gray-50">
-        <h3 className="font-semibold mb-2">Tech Stack</h3>
+      {/* TECH STACK */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-2">
+          Tech Stack
+        </h3>
 
         <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech) => (
+          {project.tech.map((item) => (
             <span
-              key={tech}
-              className="
-                text-xs px-3 py-1 rounded-full
-                bg-white border
-              "
+              key={item}
+              className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200"
             >
-              {tech}
+              {item}
             </span>
           ))}
         </div>
       </div>
 
       {/* FEATURES */}
-      <div className="p-4 rounded-xl border bg-gray-50">
-        <h3 className="font-semibold mb-2">Key Features</h3>
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-2">
+          Key Features
+        </h3>
 
         <ul className="space-y-2 text-sm text-gray-700">
-          {project.features.map((f) => (
-            <li key={f} className="flex gap-2">
-              <span>▹</span>
-              <span>{f}</span>
+          {project.features.map((feature) => (
+            <li key={feature} className="flex gap-2">
+              <span className="text-blue-500">▹</span>
+              <span>{feature}</span>
             </li>
           ))}
         </ul>
       </div>
 
       {/* BUTTONS */}
-      <div className="flex gap-3">
+      <div className="flex gap-3 pt-2">
         <a
           href={project.github}
           target="_blank"
           rel="noreferrer"
-          className="
-            px-4 py-2 rounded-lg
-            bg-black text-white
-            hover:opacity-90
-            transition
-          "
+          className="px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-gray-800 transition"
         >
           GitHub
         </a>
@@ -79,12 +75,7 @@ const ProjectDetails = ({ project }) => {
           href={project.demo}
           target="_blank"
           rel="noreferrer"
-          className="
-            px-4 py-2 rounded-lg
-            bg-blue-600 text-white
-            hover:bg-blue-700
-            transition
-          "
+          className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
         >
           Live Demo
         </a>
