@@ -1,48 +1,103 @@
 import React from "react";
 import { useWindow } from "../../context/WindowContext";
 
-
 const StartHere = () => {
-  const { openWindow, closeWindow } = useWindow();
-
-  const handleNavigate = (app) => {
-    closeWindow();
-    setTimeout(() => openWindow(app), 100); // small delay for smooth UX
-  };
+  const { openWindow } = useWindow();
 
   return (
-    <div className="space-y-6 text-center">
-      
-      <h2 className="text-2xl font-bold">Welcome 👋</h2>
+    <div className="max-w-3xl mx-auto py-6 text-center">
 
-      <p className="text-gray-700 max-w-md mx-auto">
-        Hi, I'm a Full Stack Developer. Explore my work, skills, and projects through this interactive portfolio.
-      </p>
+      {/* Hero */}
+      <div className="mb-8">
 
-      {/* Quick Actions */}
-      <div className="flex flex-col sm:flex-row gap-3 justify-center">
-        
+        <h1 className="text-4xl font-bold text-gray-900">
+          Welcome to My Portfolio
+        </h1>
+
+        <p className="mt-3 text-gray-600 text-lg">
+          Explore my projects, experience, skills and resume through this
+          interactive desktop experience.
+        </p>
+
+      </div>
+
+      {/* Quick Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
         <button
-          onClick={() => handleNavigate("Projects")}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          onClick={() => openWindow("Projects")}
+          className="
+            text-left
+            bg-white
+            border border-gray-200
+            rounded-2xl
+            p-5
+            shadow-sm
+            hover:shadow-lg
+            hover:-translate-y-1
+            transition-all
+          "
         >
-          View Projects
+          <h3 className="font-semibold text-lg text-gray-900">
+            🚀 Projects
+          </h3>
+
+          <p className="text-sm text-gray-600 mt-2">
+            Explore real-world applications and development work.
+          </p>
         </button>
 
         <button
-          onClick={() => handleNavigate("About")}
-          className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition"
+          onClick={() => openWindow("About")}
+          className="
+            text-left
+            bg-white
+            border border-gray-200
+            rounded-2xl
+            p-5
+            shadow-sm
+            hover:shadow-lg
+            hover:-translate-y-1
+            transition-all
+          "
         >
-          About Me
+          <h3 className="font-semibold text-lg text-gray-900">
+            👨‍💻 About Me
+          </h3>
+
+          <p className="text-sm text-gray-600 mt-2">
+            Learn about my journey, skills and professional experience.
+          </p>
         </button>
 
         <button
-          onClick={() => handleNavigate("Resume")}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          onClick={() => openWindow("Resume")}
+          className="
+            text-left
+            bg-white
+            border border-gray-200
+            rounded-2xl
+            p-5
+            shadow-sm
+            hover:shadow-lg
+            hover:-translate-y-1
+            transition-all
+          "
         >
-          Resume
+          <h3 className="font-semibold text-lg text-gray-900">
+            📄 Resume
+          </h3>
+
+          <p className="text-sm text-gray-600 mt-2">
+            View or download my latest professional resume.
+          </p>
         </button>
 
+      </div>
+
+      {/* Footer */}
+      <div className="mt-8 text-sm text-gray-500">
+        Associate Software Engineer • Full Stack Developer
       </div>
 
     </div>
