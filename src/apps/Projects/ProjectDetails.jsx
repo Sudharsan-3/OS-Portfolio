@@ -1,18 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ProjectDetails = ({ project }) => {
   if (!project) return null;
+  const [selectedImage, setSelectedImage] = useState(
+    project.screenshots?.[0] || project.thumbnail
+  );
 
   return (
     <div className="space-y-6 text-gray-900">
 
       {/* HERO IMAGE */}
       <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-56 object-cover"
-        />
+      <div className="space-y-3">
+  <div className="rounded-xl overflow-hidden border border-gray-200 bg-white">
+    <img
+      src={selectedImage}
+      alt={project.title}
+      className="w-full h-72 object-cover"
+    />
+  </div>
+
+  {project.screenshots?.length > 1 && (
+    <div className="flex gap-2 overflow-x-auto">
+      {project.screenshots.map((image, index) => (
+        <button
+          key={index}
+          onClick={() => setSelectedImage(image)}
+          className={`
+            rounded-lg overflow-hidden border-2
+            ${
+              selectedImage === image
+                ? "border-blue-500"
+                : "border-gray-200"
+            }
+          `}
+        >
+          <img
+            src={image}
+            alt={`Screenshot ${index + 1}`}
+            className="w-20 h-14 object-cover"
+          />
+        </button>
+      ))}
+    </div>
+  )}
+</div>
       </div>
 
       {/* TITLE + DESCRIPTION */}
