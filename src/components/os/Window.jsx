@@ -63,7 +63,7 @@ const Window = ({ windowData, children }) => {
         top: maximized ? 0 : position.y,
         left: maximized ? 0 : position.x,
         width: maximized ? "100vw" : "800px",
-        height: maximized ? "calc(100vh - 64px)" : "auto",
+        height: maximized ? "100vh" : "70vh",maxHeight: "90vh",
         zIndex: zIndex || 10,
       }}
       className={`flex flex-col bg-white shadow-2xl rounded-xl overflow-hidden ${
