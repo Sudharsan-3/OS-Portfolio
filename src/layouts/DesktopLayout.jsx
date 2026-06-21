@@ -15,6 +15,8 @@ import ResumeApp from "../apps/Resume/ResumeApp";
 import HireApp from "../apps/Hire/HireApp";
 import StartHere from "../apps/StartHere/StartHere";
 
+import { AnimatePresence } from "framer-motion";
+
 const DesktopLayout = () => {
   const { windows, openWindow } = useWindow();
 
@@ -63,16 +65,15 @@ const DesktopLayout = () => {
 
       <Desktop />
 
-      {windows
-        .filter((window) => !window.minimized)
-        .map((window) => (
-          <Window
-          key={`${window.name}-${window.data?.title || ""}`}
-            windowData={window}
-          >
-            {renderApp(window)}
-          </Window>
-        ))}
+      <AnimatePresence>
+  {windows.map((win) =>
+    !win.minimized ? (
+      <Window key={win.name} windowData={win}>
+        {renderApp(win)}
+      </Window>
+    ) : null
+  )}
+</AnimatePresence>
 
       <Taskbar />
     </div>

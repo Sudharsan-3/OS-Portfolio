@@ -5,17 +5,18 @@ const ProjectFile = ({ project, onOpen }) => {
   return (
     <motion.div
       onClick={() => onOpen(project)}
-      whileHover={{ scale: 1.03, y: -4 }}
+      whileHover={{ scale: 1.02, y: -3 }}
       whileTap={{ scale: 0.98 }}
       className="
         group cursor-pointer
         rounded-xl overflow-hidden
-       border border-gray-200
-bg-white backdrop-blur-xl
-        hover:bg-white/10
+        border border-gray-200
+        bg-white shadow-sm
+        hover:shadow-md
         transition-all
       "
     >
+
       {/* IMAGE */}
       <div className="h-40 overflow-hidden">
         <img
@@ -23,7 +24,7 @@ bg-white backdrop-blur-xl
           alt={project.title}
           className="
             w-full h-full object-cover
-            group-hover:scale-110
+            group-hover:scale-105
             transition-transform duration-300
           "
         />
@@ -31,15 +32,16 @@ bg-white backdrop-blur-xl
 
       {/* CONTENT */}
       <div className="p-3">
+
         <h3 className="font-semibold text-gray-900">
           {project.title}
         </h3>
 
-        <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
           {project.shortDescription}
         </p>
 
-        {/* TECH TAGS */}
+        {/* TAGS */}
         <div className="flex flex-wrap gap-1 mt-3">
           {project.tech?.slice(0, 3).map((tech) => (
             <span
@@ -48,13 +50,16 @@ bg-white backdrop-blur-xl
                 text-[10px]
                 px-2 py-[2px]
                 rounded-full
-               bg-gray-100 text-gray-700
+                bg-gray-50
+                text-gray-600
+                border border-gray-200
               "
             >
               {tech}
             </span>
           ))}
         </div>
+
       </div>
     </motion.div>
   );

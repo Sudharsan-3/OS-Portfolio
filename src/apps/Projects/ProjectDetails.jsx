@@ -7,7 +7,7 @@ const ProjectDetails = ({ project }) => {
     <div className="space-y-6 text-gray-900">
 
       {/* HERO IMAGE */}
-      <div className="rounded-xl overflow-hidden border border-gray-200 bg-white">
+      <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
         <img
           src={project.thumbnail}
           alt={project.title}
@@ -17,11 +17,11 @@ const ProjectDetails = ({ project }) => {
 
       {/* TITLE + DESCRIPTION */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           {project.title}
         </h2>
 
-        <p className="mt-2 text-gray-600 leading-relaxed">
+        <p className="mt-2 text-gray-600 leading-relaxed text-[15px]">
           {project.fullDescription}
         </p>
       </div>
@@ -36,7 +36,8 @@ const ProjectDetails = ({ project }) => {
           {project.tech.map((item) => (
             <span
               key={item}
-              className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200"
+              className="text-xs px-3 py-1 rounded-full bg-gray-50 text-gray-600 border border-gray-200
+hover:bg-gray-100 transition"
             >
               {item}
             </span>
@@ -50,10 +51,10 @@ const ProjectDetails = ({ project }) => {
           Key Features
         </h3>
 
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-600 leading-relaxed">
           {project.features.map((feature) => (
             <li key={feature} className="flex gap-2">
-              <span className="text-blue-500">▹</span>
+              <span className="text-blue-500 mt-[2px]">▹</span>
               <span>{feature}</span>
             </li>
           ))}
@@ -66,7 +67,7 @@ const ProjectDetails = ({ project }) => {
           href={project.github}
           target="_blank"
           rel="noreferrer"
-          className="px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-gray-800 transition"
+          className="px-4 py-2 rounded-lg bg-gray-900 text-white hover:scale-[1.02] active:scale-[0.98]  transition"
         >
           GitHub
         </a>
@@ -75,7 +76,7 @@ const ProjectDetails = ({ project }) => {
           href={project.demo}
           target="_blank"
           rel="noreferrer"
-          className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+          className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:scale-[1.02] active:scale-[0.98] transition"
         >
           Live Demo
         </a>
