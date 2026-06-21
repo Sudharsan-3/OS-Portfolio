@@ -59,7 +59,7 @@ const DesktopLayout = () => {
   };
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-black relative">
+    <div className="w-screen h-screen overflow-hidden bg-black relative pb-16">
 
       <Desktop />
 

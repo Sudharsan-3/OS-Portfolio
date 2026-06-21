@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 const Taskbar = () => {
   const [time, setTime] = useState("");
+  const { activeWindow } = useWindow();
 
   const {
     windows,
@@ -68,29 +69,23 @@ z-50
 
         {/* Open Windows */}
         {windows.map((window) => (
-          <button
-            key={window.name}
-            onClick={() => restoreWindow(window.name)}
-            className={`
-              px-3 py-1
-rounded-lg
-text-sm
-transition-all
-duration-200
-hover:scale-105
-              ${window.minimized
-                ? "bg-gray-700"
-                : "bg-blue-600"
-              }
-            `}
-          >
-            {
-              window.name === "ProjectDetails"
-                ? window.data?.title
-                : window.name
-            }
-          </button>
-        ))}
+  <button
+    key={window.name}
+    onClick={() => restoreWindow(window.name)}
+    className={`
+      px-3 py-1 rounded-lg text-sm transition-all duration-200 hover:scale-105
+      ${
+        activeWindow === window.name
+          ? "bg-blue-500 text-white"
+          : "bg-gray-700 text-gray-200"
+      }
+    `}
+  >
+    {window.name === "ProjectDetails"
+      ? window.data?.title || "Project"
+      : window.name}
+  </button>
+))}
       </div>
 
       {/* Right Side */}
