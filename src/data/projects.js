@@ -46,7 +46,7 @@ export const projects = [
       "Centralized error handling",
     ],
 
-    github: "https://github.com/Sudharsan-3",
+    github: "https://github.com/Sudharsan-3/Task-Management.git",
     demo: "https://task-management-rk7n.vercel.app/",
   },
 

@@ -40,54 +40,124 @@ const ContactApp = () => {
   };
 
   return (
-    <div className="text-gray-900 space-y-4">
-
-      <h2 className="text-2xl font-bold">
-        Feedback / Contact
-      </h2>
-
-      <p className="text-sm text-gray-600">
-        Send me a message — I’ll reply via email.
-      </p>
-
-      <form onSubmit={sendEmail} className="space-y-3">
-
-        <input
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-lg"
-          required
-        />
-
-        <input
-          name="email"
-          placeholder="Your Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-lg"
-          required
-        />
-
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          value={form.message}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-lg h-28"
-          required
-        />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+    <div className="max-w-3xl mx-auto text-gray-900">
+  
+      {/* HEADER CARD */}
+      <div className="bg-gradient-to-r from-blue-50 to-white border border-gray-200 rounded-2xl p-6 mb-6">
+  
+        <h2 className="text-3xl font-bold">
+          Let's Connect
+        </h2>
+  
+        <p className="text-gray-600 mt-2">
+          Have feedback, an opportunity, or just want to say hello?
+          Send me a message and I'll get back to you.
+        </p>
+  
+      </div>
+  
+      {/* FORM CARD */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+  
+        <form
+          onSubmit={sendEmail}
+          className="space-y-4"
         >
-          {loading ? "Sending..." : "Send Message"}
-        </button>
-
-      </form>
+  
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Name
+            </label>
+  
+            <input
+              name="name"
+              placeholder="Enter your name"
+              value={form.name}
+              onChange={handleChange}
+              className="
+                w-full
+                p-3
+                border
+                border-gray-300
+                rounded-xl
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+              "
+              required
+            />
+          </div>
+  
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Email
+            </label>
+  
+            <input
+              name="email"
+              placeholder="Enter your email"
+              value={form.email}
+              onChange={handleChange}
+              className="
+                w-full
+                p-3
+                border
+                border-gray-300
+                rounded-xl
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+              "
+              required
+            />
+          </div>
+  
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Message
+            </label>
+  
+            <textarea
+              name="message"
+              placeholder="Write your message..."
+              value={form.message}
+              onChange={handleChange}
+              className="
+                w-full
+                p-3
+                border
+                border-gray-300
+                rounded-xl
+                h-36
+                resize-none
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+              "
+              required
+            />
+          </div>
+  
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+              w-full
+              bg-blue-600
+              text-white
+              py-3
+              rounded-xl
+              font-medium
+              hover:bg-blue-700
+              transition
+            "
+          >
+            {loading ? "Sending..." : "Send Message"}
+          </button>
+  
+        </form>
+  
+      </div>
     </div>
   );
 };
