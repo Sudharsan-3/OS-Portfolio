@@ -1,6 +1,9 @@
 import React from "react";
+import useDeviceType from "../../hooks/useDeviceType";
 
 const ResumeApp = () => {
+  const deviceType = useDeviceType();
+  const isMobile = deviceType === "mobile";
   return (
     <div className="space-y-6">
 
@@ -16,6 +19,20 @@ const ResumeApp = () => {
           React.js, Node.js, Express.js, PostgreSQL,
           MongoDB and modern web application development.
         </p>
+
+        {/* Mobile Message */}
+        {isMobile && (
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 text-center">
+            <h3 className="font-semibold text-lg">
+              Resume Preview
+            </h3>
+
+            <p className="text-sm text-gray-600 mt-2">
+              Mobile browsers may block PDF previews.
+              Use the buttons below to open or download my resume.
+            </p>
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-3 mt-4">
 
@@ -55,6 +72,8 @@ const ResumeApp = () => {
       </div>
 
       {/* PDF VIEWER */}
+      {/* Desktop Only */}
+    
       <div
         className="
           bg-white
@@ -64,11 +83,15 @@ const ResumeApp = () => {
           shadow-sm
         "
       >
-        <iframe
-          src="/resume.pdf"
-          title="Resume"
-          className="w-full h-[70vh]"
-        />
+          {!isMobile && (
+        <div className="w-full h-[70vh] border rounded-lg overflow-hidden shadow">
+          <iframe
+            src="/resume.pdf"
+            title="Resume"
+            className="w-full h-full"
+          />
+        </div>
+      )}
       </div>
 
     </div>
