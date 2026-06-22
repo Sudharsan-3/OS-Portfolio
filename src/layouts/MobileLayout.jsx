@@ -8,7 +8,7 @@ import ProjectDetails from "../apps/Projects/ProjectDetails";
 import wallpaper from "../assets/images/mobile-wallpaper.jpg";
 import profileImg from "../assets/images/profile.jpg";
 import MobileStatusBar from "../components/mobile/MobileStatusBar";
-import MobileWidget from "../components/mobile/MobileWidget";
+import MobileWidget from "../components/mobile/widgets/MobileWidget";
 import MobileAppGrid from "../components/mobile/MobileAppGrid";
 import MobileDock from "../components/mobile/MobileDock";
 import MobileGestureBar from "../components/mobile/MobileGestureBar";
