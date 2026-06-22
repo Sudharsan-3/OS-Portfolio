@@ -11,8 +11,57 @@ import transactionThumb from "../assets/projects/transaction-tracker/transaction
 import employeeThumb from "../assets/projects/employee-guidance/employee-1.png";
 import elitoraThumb from "../assets/projects/elitora/elitora-1.png";
 import multiTenantThumb from "../assets/projects/multi-tenant/multi-tenant-1.png";
+import portfolio1 from "../assets/projects/os-portfolio/portfolio-1.png";
+import portfolio2 from "../assets/projects/os-portfolio/portfolio-2.png";
+import portfolio3 from "../assets/projects/os-portfolio/portfolio-3.png";
+import portfolio4 from "../assets/projects/os-portfolio/portfolio-4.png";
 
 export const projects = [
+  {
+    id: "os-portfolio",
+  
+    title: "OS Portfolio",
+  
+    thumbnail: portfolio1,
+  
+    screenshots: [
+      portfolio1,
+      portfolio2,
+      portfolio3,
+      portfolio4,
+    ],
+  
+    shortDescription:
+      "Interactive portfolio website inspired by a desktop operating system experience.",
+  
+    fullDescription:
+      "A unique portfolio application designed to simulate a real desktop and mobile operating system. Users can explore projects, resume, skills, experience, and contact information through an interactive UI. The application features responsive layouts for desktop and mobile devices, project galleries, resume viewer, smooth animations, and custom navigation patterns inspired by modern operating systems.",
+  
+    tech: [
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Vite",
+    ],
+  
+    features: [
+      "Desktop OS inspired interface",
+      "Mobile OS experience",
+      "Project gallery with screenshots",
+      "Interactive window management",
+      "Responsive design",
+      "Resume viewer and download",
+      "Contact form integration",
+      "Smooth animations with Framer Motion",
+    ],
+  
+    github:
+      "https://github.com/Sudharsan-3/OS-Portfolio",
+  
+    demo:
+      "https://os-portfolio-seven-wheat.vercel.app/",
+  },
   {
     id: "task-management",
 
@@ -47,7 +96,7 @@ export const projects = [
     ],
 
     github: "https://github.com/Sudharsan-3/Task-Management.git",
-    demo: "https://task-management-rk7n.vercel.app/",
+    demo: "",
   },
 
   {
