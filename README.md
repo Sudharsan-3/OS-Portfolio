@@ -1,16 +1,61 @@
-# React + Vite
+# 📱 OS Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mobile OS-inspired interactive portfolio built with React.  
+It simulates a real smartphone experience where apps like About, Projects, Resume, and Contact open like native mobile applications.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
 
-## React Compiler
+https://os-portfolio-seven-wheat.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📱 Mobile OS Interface  
+- Android-style home screen  
+- App icon grid system  
+- Bottom navigation bar like a real phone  
+- Smooth screen transitions between apps  
+
+🧭 Navigation System  
+- Home → Apps → Details → Back flow  
+- Project detail drill-down experience  
+- No page reloads (fully SPA-based UI)  
+
+🧩 Widget System  
+- Welcome guide widget  
+- Rotating fun facts  
+- Developer insight messages  
+- Fully local data system (no external API)  
+
+📁 Projects Explorer  
+- Interactive project cards  
+- Detailed project view screen  
+- Tech stack tags  
+- Smooth hover animations  
+
+📄 Resume Section  
+- Clean resume layout  
+- Structured experience display  
+
+📬 Contact Section  
+- Simple and clean contact UI  
+- Easy access to social links  
+
+---
+
+## 🛠 Tech Stack
+
+React.js • JavaScript (ES6+) • Tailwind CSS • Framer Motion • Lucide Icons • Vite
+
+---
+
+## ⚙️ Setup Instructions
+
+```bash
+git clone https://github.com/Sudharsan-3/OS-Portfolio.git
+cd OS-Portfolio
+npm install
+npm run dev
