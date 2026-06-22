@@ -11,17 +11,20 @@ const ProjectFile = ({ project, onOpen }) => {
       }}
       whileTap={{ scale: 0.98 }}
       className="
-        group cursor-pointer
-        rounded-xl overflow-hidden
-        border border-gray-200
-        bg-white shadow-sm
-        hover:shadow-xl
-        transition-all
-      "
+group
+cursor-pointer
+rounded-2xl
+overflow-hidden
+bg-white
+shadow-md
+border border-gray-100
+active:scale-[0.98]
+transition-all
+"
     >
 
       {/* IMAGE */}
-      <div className="relative h-40 overflow-hidden">
+      <div className="relative h-48 overflow-hidden rounded-t-xl">
         <img
           src={project.thumbnail}
           alt={project.title}
@@ -42,9 +45,9 @@ const ProjectFile = ({ project, onOpen }) => {
       </div>
 
       {/* CONTENT */}
-      <div className="p-3">
+      <div className="p-4">
 
-        <h3 className="font-semibold text-gray-900">
+        <h3 className="font-bold text-lg text-gray-900">
           {project.title}
         </h3>
 
