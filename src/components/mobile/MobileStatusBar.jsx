@@ -3,7 +3,6 @@ import { Battery, Wifi, Signal } from "lucide-react";
 
 const MobileStatusBar = () => {
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
@@ -15,14 +14,6 @@ const MobileStatusBar = () => {
           minute: "2-digit",
         })
       );
-
-    //   setDate(
-    //     now.toLocaleDateString([], {
-    //       weekday: "short",
-    //       month: "short",
-    //       day: "numeric",
-    //     })
-    //   );
     };
 
     updateTime();
@@ -34,27 +25,25 @@ const MobileStatusBar = () => {
 
   return (
     <div className="px-5 pt-4 text-white">
-      <div className="flex justify-between items-center">
-        <span className="font-semibold">
+      <div className="flex items-center justify-between">
+        {/* Time */}
+        <span className="font-semibold tracking-wide">
           {time}
         </span>
 
+        {/* Status icons */}
         <div className="flex items-center gap-2">
-          <Signal size={14} />
-          <Wifi size={14} />
+          <Signal size={14} strokeWidth={2} />
+          <Wifi size={14} strokeWidth={2} />
 
           <div className="flex items-center gap-1">
-            <Battery size={16} />
-            <span className="text-xs">
+            <Battery size={16} strokeWidth={2} />
+            <span className="text-xs font-medium">
               69%
             </span>
           </div>
         </div>
       </div>
-
-      <p className="text-xs text-white/70 mt-1">
-        {date}
-      </p>
     </div>
   );
 };

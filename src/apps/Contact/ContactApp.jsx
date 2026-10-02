@@ -11,7 +11,10 @@ const ContactApp = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const sendEmail = (e) => {
@@ -31,7 +34,12 @@ const ContactApp = () => {
       )
       .then(() => {
         alert("Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
+
+        setForm({
+          name: "",
+          email: "",
+          message: "",
+        });
       })
       .catch(() => {
         alert("Failed to send message");
@@ -40,124 +48,178 @@ const ContactApp = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto text-gray-900">
-  
-      {/* HEADER CARD */}
-      <div className="bg-gradient-to-r from-blue-50 to-white border border-gray-200 rounded-2xl p-6 mb-6">
-  
-        <h2 className="text-3xl font-bold">
+    <div className="max-w-3xl mx-auto text-gray-900 px-1">
+
+      {/* HEADER */}
+      <section
+        className="
+          rounded-2xl
+          border border-gray-200
+          bg-gradient-to-br from-blue-50 via-white to-white
+          p-5 sm:p-6
+        "
+      >
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-600">
+          Get In Touch
+        </p>
+
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mt-1">
           Let's Connect
         </h2>
-  
-        <p className="text-gray-600 mt-2">
-          Have feedback, an opportunity, or just want to say hello?
+
+        <p className="mt-2 text-sm sm:text-[15px] leading-6 text-gray-600 max-w-2xl">
+          Have an opportunity, feedback, or just want to say hello?
           Send me a message and I'll get back to you.
         </p>
-  
-      </div>
-  
-      {/* FORM CARD */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-  
+      </section>
+
+      {/* FORM */}
+      <section className="mt-5 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm">
+
         <form
           onSubmit={sendEmail}
-          className="space-y-4"
+          className="space-y-5"
         >
-  
+
+          {/* NAME */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-800 mb-1.5"
+            >
               Name
             </label>
-  
+
             <input
+              id="name"
               name="name"
+              type="text"
               placeholder="Enter your name"
               value={form.name}
               onChange={handleChange}
               className="
                 w-full
-                p-3
-                border
-                border-gray-300
                 rounded-xl
-                focus:outline-none
+                border border-gray-200
+                bg-gray-50
+                px-4 py-3
+                text-sm
+                text-gray-900
+                placeholder:text-gray-400
+                outline-none
+                transition
+                focus:border-blue-500
+                focus:bg-white
                 focus:ring-2
-                focus:ring-blue-500
+                focus:ring-blue-100
               "
               required
             />
           </div>
-  
+
+          {/* EMAIL */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-800 mb-1.5"
+            >
               Email
             </label>
-  
+
             <input
+              id="email"
               name="email"
+              type="email"
               placeholder="Enter your email"
               value={form.email}
               onChange={handleChange}
               className="
                 w-full
-                p-3
-                border
-                border-gray-300
                 rounded-xl
-                focus:outline-none
+                border border-gray-200
+                bg-gray-50
+                px-4 py-3
+                text-sm
+                text-gray-900
+                placeholder:text-gray-400
+                outline-none
+                transition
+                focus:border-blue-500
+                focus:bg-white
                 focus:ring-2
-                focus:ring-blue-500
+                focus:ring-blue-100
               "
               required
             />
           </div>
-  
+
+          {/* MESSAGE */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-800 mb-1.5"
+            >
               Message
             </label>
-  
+
             <textarea
+              id="message"
               name="message"
-              placeholder="Write your message..."
+              placeholder="Tell me about your opportunity or message..."
               value={form.message}
               onChange={handleChange}
               className="
                 w-full
-                p-3
-                border
-                border-gray-300
+                min-h-36
                 rounded-xl
-                h-36
-                resize-none
-                focus:outline-none
+                border border-gray-200
+                bg-gray-50
+                px-4 py-3
+                text-sm
+                leading-6
+                text-gray-900
+                placeholder:text-gray-400
+                outline-none
+                resize-y
+                transition
+                focus:border-blue-500
+                focus:bg-white
                 focus:ring-2
-                focus:ring-blue-500
+                focus:ring-blue-100
               "
               required
             />
           </div>
-  
+
+          {/* SUBMIT */}
           <button
             type="submit"
             disabled={loading}
             className="
               w-full
-              bg-blue-600
-              text-white
-              py-3
               rounded-xl
-              font-medium
+              bg-blue-600
+              px-4 py-3
+              text-sm
+              font-semibold
+              text-white
               hover:bg-blue-700
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              active:scale-[0.99]
               transition
             "
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
-  
+
+          <p className="text-center text-[11px] text-gray-400">
+            Your message will be sent directly through the contact form.
+          </p>
+
         </form>
-  
-      </div>
+      </section>
+
     </div>
   );
 };
