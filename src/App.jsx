@@ -1,47 +1,62 @@
 import { useEffect, useState } from "react";
+
 import BootScreen from "./components/BootScreen";
 import DesktopLayout from "./layouts/DesktopLayout";
 import MobileLayout from "./layouts/MobileLayout";
 import WelcomePopup from "./components/WelcomePopup";
 
 function App() {
-  const [booted, setBooted] = useState(false);
+  const firstVisit =
+    localStorage.getItem("osPortfolioVisited") !== "true";
+
+  const [booted, setBooted] = useState(!firstVisit);
   const [showWelcome, setShowWelcome] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < 768
+  );
 
-  // detect device AFTER boot
   useEffect(() => {
-    if (!booted) return;
+    const checkDevice = () => {
+      const mobile = window.innerWidth < 768;
 
-    const check = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(mobile);
+
+      if (mobile) {
+        setShowWelcome(false);
+      }
     };
 
-    check();
-    window.addEventListener("resize", check);
+    checkDevice();
 
-    return () => window.removeEventListener("resize", check);
-  }, [booted]);
+    window.addEventListener("resize", checkDevice);
+
+    return () => {
+      window.removeEventListener("resize", checkDevice);
+    };
+  }, []);
+
+  const handleBootFinish = () => {
+    localStorage.setItem("osPortfolioVisited", "true");
+
+    setBooted(true);
+
+    // Windows welcome popup only on first desktop visit
+    if (window.innerWidth >= 768) {
+      setTimeout(() => {
+        setShowWelcome(true);
+      }, 400);
+    }
+  };
 
   return (
     <>
       {!booted ? (
-        <BootScreen
-          onFinish={() => {
-            setBooted(true);
-
-            setTimeout(() => {
-              setShowWelcome(true);
-            }, 500);
-          }}
-        />
+        <BootScreen onFinish={handleBootFinish} />
       ) : (
         <>
-          {/* DEVICE SWITCH HERE */}
           {isMobile ? <MobileLayout /> : <DesktopLayout />}
 
-          {/* WELCOME POPUP (same for both) */}
-          {showWelcome && (
+          {!isMobile && showWelcome && (
             <WelcomePopup
               onClose={() => setShowWelcome(false)}
             />

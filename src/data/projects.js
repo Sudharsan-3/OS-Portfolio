@@ -21,6 +21,8 @@ export const projects = [
     id: "os-portfolio",
   
     title: "OS Portfolio",
+
+    type: "Landing Page",
   
     thumbnail: portfolio1,
   
@@ -64,19 +66,26 @@ export const projects = [
   },
   {
     id: "task-management",
-
+  
     title: "Task Management App",
-
+  
+    type: "Full Stack Web Application",
+  
     thumbnail: taskManagerThumb,
-
-    screenshots: [taskManagerThumb,taskManager1,taskManager2,taskManager3],
-
+  
+    screenshots: [
+      taskManagerThumb,
+      taskManager1,
+      taskManager2,
+      taskManager3,
+    ],
+  
     shortDescription:
       "Full stack task management application with role based access for admin and users.",
-
+  
     fullDescription:
       "A complete task management system where admins can create, assign, update and track tasks. Users can view their assigned tasks and update status. Built with centralized error handling and forgot password functionality via email.",
-
+  
     tech: [
       "React",
       "Node.js",
@@ -84,7 +93,7 @@ export const projects = [
       "PostgreSQL",
       "Tailwind CSS",
     ],
-
+  
     features: [
       "User authentication",
       "Role based access",
@@ -94,7 +103,7 @@ export const projects = [
       "Forgot password via email",
       "Centralized error handling",
     ],
-
+  
     github: "https://github.com/Sudharsan-3/Task-Management.git",
     demo: "",
   },
@@ -103,6 +112,8 @@ export const projects = [
     id: "ecommerce-app",
 
     title: "E-Commerce App",
+
+    type: "Full Stack Web Application",
 
     thumbnail: ecommerceThumb,
 
@@ -138,6 +149,8 @@ export const projects = [
     id: "transaction-tracker",
 
     title: "Transaction Tracker",
+
+    type: "Full Stack Web Application",
 
     thumbnail: transactionThumb,
 
@@ -175,6 +188,8 @@ export const projects = [
 
     title: "Employee Guidance App",
 
+    type: "Landing Page",
+
     thumbnail: employeeThumb,
 
     screenshots: [employeeThumb],
@@ -208,6 +223,8 @@ export const projects = [
 
     title: "Elitora — E-Commerce Platform",
 
+    type: "Full Stack Web Application",
+
     thumbnail: elitoraThumb,
 
     screenshots: [elitoraThumb],
@@ -240,6 +257,8 @@ export const projects = [
     id: "multi-tenant-task-management",
 
     title: "Multi-Tenant Task Management App",
+
+    type: "Full Stack Web Application",
 
     thumbnail: multiTenantThumb,
 

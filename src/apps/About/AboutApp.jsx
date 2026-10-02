@@ -2,73 +2,83 @@ import React from "react";
 import { profile } from "../../data/profile";
 import { skills } from "../../data/skills";
 import profileImg from "../../assets/images/profile.jpg";
-import bannerImg from "../../assets/images/banner.png"
+import bannerImg from "../../assets/images/banner.png";
 
 const AboutApp = () => {
   return (
-    <div className="space-y-6 text-gray-900">
+    <div className="space-y-5 sm:space-y-6 text-gray-900">
 
-      {/* PROFILE SECTION */}
-      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+      {/* PROFILE */}
+      <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
 
         {/* Banner */}
-        <div className="h-52 overflow-hidden">
+        <div className="h-40 sm:h-52 overflow-hidden bg-gray-100">
           <img
             src={bannerImg}
-            alt="banner"
+            alt="Portfolio banner"
             className="w-full h-full object-cover"
           />
         </div>
 
         {/* Profile Content */}
-        <div className="relative px-6 pb-6">
+        <div className="px-4 pb-5 sm:px-6 sm:pb-6">
 
           <img
             src={profileImg}
-            alt="profile"
+            alt={profile.name}
             className="
-      w-32 h-32
-      rounded-full
-      object-cover
-      border-4 border-white
-      shadow-lg
-      -mt-16
-    "
+              -mt-12
+              sm:-mt-16
+              w-24 h-24
+              sm:w-32 sm:h-32
+              rounded-full
+              object-cover
+              border-4 border-white
+              shadow-lg
+            "
           />
 
           <div className="mt-3">
+            <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-600">
+              About Me
+            </p>
 
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mt-1">
               {profile.name}
             </h2>
 
-            <p className="text-gray-600 mt-1">
+            <p className="mt-1 text-sm sm:text-base text-gray-600">
               Associate Software Engineer
             </p>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="mt-1.5 text-xs sm:text-sm text-gray-500">
               React • Node.js • PostgreSQL • MongoDB
             </p>
-
           </div>
 
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-wrap gap-3 mt-5">
+          {/* ACTIONS */}
+          <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2.5 mt-5">
 
             <a
               href={profile.github}
               target="_blank"
               rel="noreferrer"
               className="
-        px-4 py-2
-        rounded-xl
-        bg-gray-900
-        text-white
-        hover:scale-105
-        transition
-      "
+                inline-flex
+                items-center
+                justify-center
+                rounded-xl
+                bg-gray-900
+                px-4 py-2.5
+                text-sm
+                font-medium
+                text-white
+                hover:bg-black
+                active:scale-[0.98]
+                transition
+              "
             >
-              GitHub
+              GitHub ↗
             </a>
 
             <a
@@ -76,180 +86,190 @@ const AboutApp = () => {
               target="_blank"
               rel="noreferrer"
               className="
-        px-4 py-2
-        rounded-xl
-        bg-blue-600
-        text-white
-        hover:scale-105
-        transition
-      "
+                inline-flex
+                items-center
+                justify-center
+                rounded-xl
+                bg-blue-600
+                px-4 py-2.5
+                text-sm
+                font-medium
+                text-white
+                hover:bg-blue-700
+                active:scale-[0.98]
+                transition
+              "
             >
-              LinkedIn
+              LinkedIn ↗
             </a>
 
             <a
               href={`mailto:${profile.email}`}
               className="
-        px-4 py-2
-        rounded-xl
-        border border-gray-200
-        bg-white
-        text-gray-700
-        hover:bg-gray-50
-        transition
-      "
+                inline-flex
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-gray-200
+                bg-white
+                px-4 py-2.5
+                text-sm
+                font-medium
+                text-gray-700
+                hover:bg-gray-50
+                active:scale-[0.98]
+                transition
+              "
             >
               Email
             </a>
 
           </div>
-
         </div>
-      </div>
+      </section>
 
       {/* STATS */}
-      <div className="grid grid-cols-3 gap-3">
+      <section className="grid grid-cols-3 gap-2.5 sm:gap-3">
 
-        <div className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
-          <h3 className="text-2xl font-bold text-blue-600">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-4 text-center shadow-sm">
+          <p className="text-xl sm:text-2xl font-bold text-blue-600">
             10+
-          </h3>
-          <p className="text-sm text-gray-500">
+          </p>
+
+          <p className="mt-1 text-[10px] sm:text-xs text-gray-500 leading-4">
             Projects Built
           </p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
-          <h3 className="text-2xl font-bold text-blue-600">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-4 text-center shadow-sm">
+          <p className="text-xl sm:text-2xl font-bold text-blue-600">
             14+
-          </h3>
-          <p className="text-sm text-gray-500">
+          </p>
+
+          <p className="mt-1 text-[10px] sm:text-xs text-gray-500 leading-4">
             Months Experience
           </p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
-          <h3 className="text-2xl font-bold text-blue-600">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-4 text-center shadow-sm">
+          <p className="text-xl sm:text-2xl font-bold text-blue-600">
             3
-          </h3>
-          <p className="text-sm text-gray-500">
+          </p>
+
+          <p className="mt-1 text-[10px] sm:text-xs text-gray-500 leading-4">
             Professional Roles
           </p>
         </div>
 
-      </div>
+      </section>
 
       {/* ABOUT */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm">
 
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          About Me
-        </h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl sm:text-2xl font-bold">
+            About Me
+          </h2>
 
-        <p className="text-gray-600 leading-8">
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
+
+        <p className="mt-4 text-sm sm:text-[15px] leading-6 sm:leading-7 text-gray-600">
           {profile.about}
         </p>
 
-      </div>
+      </section>
 
       {/* SKILLS */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm">
 
-  <h2 className="text-xl font-semibold mb-4">
-    Skills & Technologies
-  </h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-semibold">
+            Skills & Technologies
+          </h2>
 
-  <div className="flex flex-wrap gap-2">
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
 
-    {skills.map((skill,index) => (
-      <span
-        key={index}
-        className="
-          px-3 py-2
-          rounded-xl
-          bg-blue-50
-          text-blue-700
-          border border-blue-100
-          text-sm
-          font-medium
-          hover:scale-105
-          transition
-        "
-      >
-        {skill}
-      </span>
-    ))}
+        <div className="flex flex-wrap gap-2 mt-4">
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="
+                rounded-xl
+                border border-blue-100
+                bg-blue-50
+                px-3 py-1.5
+                text-xs sm:text-sm
+                font-medium
+                text-blue-700
+              "
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
 
-  </div>
-
-</div>
+      </section>
 
       {/* EXPERIENCE */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm">
 
-<h2 className="text-xl font-semibold mb-6">
-  Experience
-</h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-semibold">
+            Experience
+          </h2>
 
-<div className="space-y-8">
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
 
-  {profile.experience.map((exp,index) => (
-    <div
-      key={index}
-      className="flex gap-4"
-    >
+        <div className="mt-6 space-y-7">
 
-      {/* Timeline */}
-      <div className="flex flex-col items-center">
+          {profile.experience.map((exp, index) => (
+            <div
+              key={index}
+              className="flex gap-3.5 sm:gap-4"
+            >
 
-        <div
-          className="
-            w-4 h-4
-            rounded-full
-            bg-blue-600
-          "
-        />
+              {/* Timeline */}
+              <div className="flex flex-col items-center">
 
-        {index !== profile.experience.length - 1 && (
-          <div
-            className="
-              w-[2px]
-              flex-1
-              bg-blue-200
-              mt-2
-            "
-          />
-        )}
+                <div className="mt-1 w-3.5 h-3.5 rounded-full bg-blue-600 ring-4 ring-blue-50" />
 
-      </div>
+                {index !== profile.experience.length - 1 && (
+                  <div className="mt-2 w-px flex-1 bg-blue-100" />
+                )}
 
-      {/* Content */}
-      <div className="pb-4">
+              </div>
 
-        <h3 className="font-semibold text-gray-900">
-          {exp.role}
-        </h3>
+              {/* Experience Content */}
+              <div className="min-w-0 pb-1">
 
-        <p className="text-sm text-blue-600">
-          {exp.company}
-        </p>
+                <h3 className="text-sm sm:text-base font-semibold text-gray-900">
+                  {exp.role}
+                </h3>
 
-        <p className="text-xs text-gray-500 mb-2">
-          {exp.duration}
-        </p>
+                <p className="mt-0.5 text-sm font-medium text-blue-600">
+                  {exp.company}
+                </p>
 
-        <p className="text-sm text-gray-600 leading-relaxed">
-          {exp.description}
-        </p>
+                <p className="mt-1 text-[11px] sm:text-xs text-gray-400">
+                  {exp.duration}
+                </p>
 
-      </div>
+                <p className="mt-2.5 text-sm leading-6 text-gray-600">
+                  {exp.description}
+                </p>
 
-    </div>
-  ))}
+              </div>
 
-</div>
+            </div>
+          ))}
 
-</div>
+        </div>
+
+      </section>
 
     </div>
   );

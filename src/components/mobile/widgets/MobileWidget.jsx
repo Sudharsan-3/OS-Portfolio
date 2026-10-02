@@ -1,75 +1,206 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const MobileWidget = () => {
   const slides = [
     {
-      title: "👋 Welcome",
+      type: "welcome",
+      title: "👋 Welcome Back",
       text:
-        "Welcome to Sudharsan’s OS Portfolio.\n\n" +
-        "🏠 Home button (●) always returns to home screen.\n" +
-        "◀ In Projects, use bottom-left back button to return.\n" +
-        "Explore apps using bottom navigation like a real mobile OS.",
+        "🏠 Home always takes you back to the home screen.\n" +
+        "◀ Projects has a bottom-left back button.\n\n" +
+        "Explore the portfolio like a real mobile OS.",
     },
     {
-      title: "💡 Fun Fact",
-      text:
-        "JavaScript was created in just 10 days and now powers most of the web.",
+      type: "fact",
+      title: "💡 Tech Fun Fact",
+      text: "",
     },
     {
+      type: "insight",
       title: "⚡ Developer Insight",
       text:
-        "Great developers don’t memorize everything — they build systems, patterns, and speed.",
+        "You don't need to memorize everything.\n\n" +
+        "Great developers know how to search, understand, adapt, and build.",
     },
   ];
 
-  const [index, setIndex] = useState(0);
+  const facts = [
+    "JavaScript was created in just 10 days in 1995.",
+    "Git was created by Linus Torvalds in 2005.",
+    "The first website went live in 1991.",
+    "HTML stands for HyperText Markup Language.",
+    "React was originally created at Facebook.",
+    "CSS was first proposed in 1994.",
+    "HTTP is how browsers communicate with web servers.",
+    "console.log() is one of the most common JavaScript debugging tools.",
+    "Vite is built for fast modern frontend development.",
+    "GitHub helps developers collaborate on code worldwide.",
+  ];
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % slides.length);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [factIndex, setFactIndex] = useState(0);
+
+  const pointerStartX = useRef(null);
+  const pointerCurrentX = useRef(null);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-  const prev = () => {
-    setIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const previousSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + slides.length) % slides.length
+    );
   };
 
-  // optional auto rotate
+  const handlePointerDown = (event) => {
+    pointerStartX.current = event.clientX;
+    pointerCurrentX.current = event.clientX;
+
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handlePointerMove = (event) => {
+    if (pointerStartX.current === null) {
+      return;
+    }
+
+    pointerCurrentX.current = event.clientX;
+  };
+
+  const handlePointerUp = (event) => {
+    if (
+      pointerStartX.current === null ||
+      pointerCurrentX.current === null
+    ) {
+      return;
+    }
+
+    const distance =
+      pointerStartX.current - pointerCurrentX.current;
+
+    if (Math.abs(distance) >= 50) {
+      if (distance > 0) {
+        nextSlide();
+      } else {
+        previousSlide();
+      }
+    }
+
+    pointerStartX.current = null;
+    pointerCurrentX.current = null;
+
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+  const handlePointerCancel = (event) => {
+    pointerStartX.current = null;
+    pointerCurrentX.current = null;
+
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+  // Automatically change widget
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 6000);
+      nextSlide();
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
 
+  // Rotate facts while the fact slide is active
+  useEffect(() => {
+    if (currentSlide !== 1) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setFactIndex((prev) => (prev + 1) % facts.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentSlide]);
+
+  const activeSlide = slides[currentSlide];
+
   return (
-    <div className="px-3 mt-3">
-      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white shadow-lg">
+    <div className="px-4 mt-4">
+      <div
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerCancel}
+        className="
+          relative
+          h-[205px]
+          rounded-3xl
+          border border-white/20
+          bg-black/20
+          backdrop-blur-lg
+          shadow-lg
+          px-5
+          py-4
+          select-none
+          overflow-hidden
+          touch-pan-y
+          cursor-grab
+          active:cursor-grabbing
+        "
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.18em] text-white/50">
+              Portfolio Widget
+            </p>
 
-        {/* Title */}
-        <h3 className="text-sm font-semibold mb-2">
-          {slides[index].title}
-        </h3>
+            <h2 className="text-base font-semibold text-white mt-0.5">
+              {activeSlide.title}
+            </h2>
+          </div>
 
-        {/* Text */}
-        <p className="text-xs text-white/90 whitespace-pre-line leading-relaxed">
-          {slides[index].text}
-        </p>
-
-        {/* Controls */}
-        <div className="flex justify-between items-center mt-4 text-xs text-white/70">
-          <button onClick={prev} className="hover:text-white transition">
-            ◀ Prev
-          </button>
-
-          <span>
-            {index + 1}/{slides.length}
+          <span className="text-[10px] text-white/50">
+            {currentSlide + 1}/{slides.length}
           </span>
-
-          <button onClick={next} className="hover:text-white transition">
-            Next ▶
-          </button>
         </div>
 
+        {/* Content */}
+        <div className="h-[115px] mt-3 flex items-start">
+          <p className="text-xs leading-5 text-white/90 whitespace-pre-line">
+            {activeSlide.type === "fact"
+              ? facts[factIndex]
+              : activeSlide.text}
+          </p>
+        </div>
+
+        {/* Fact label */}
+        <div className="absolute bottom-8 left-5">
+          {activeSlide.type === "fact" && (
+            <p className="text-[9px] text-white/40">
+              Local fact • No API
+            </p>
+          )}
+        </div>
+
+        {/* Slide indicators */}
+        <div className="absolute bottom-3 left-0 right-0 flex justify-center">
+          <div className="flex items-center gap-1.5">
+            {slides.map((_, index) => (
+              <div
+                key={index}
+                className={`
+                  h-1.5 rounded-full transition-all duration-300
+                  ${
+                    currentSlide === index
+                      ? "w-5 bg-white"
+                      : "w-1.5 bg-white/35"
+                  }
+                `}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

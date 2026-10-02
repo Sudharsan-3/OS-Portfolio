@@ -4,6 +4,7 @@ import Desktop from "../components/os/Desktop";
 import Taskbar from "../components/os/Taskbar";
 import Window from "../components/os/Window";
 
+import { TaskbarProvider } from "../context/TaskbarContext";
 import { useWindow } from "../context/WindowContext";
 import ProjectDetailsWindow from "../apps/Projects/ProjectDetailsWindow";
 
@@ -14,6 +15,7 @@ import ContactApp from "../apps/Contact/ContactApp";
 import ResumeApp from "../apps/Resume/ResumeApp";
 import HireApp from "../apps/Hire/HireApp";
 import StartHere from "../apps/StartHere/StartHere";
+
 
 import { AnimatePresence } from "framer-motion";
 
@@ -61,22 +63,23 @@ const DesktopLayout = () => {
   };
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-black relative pb-16">
-
-      <Desktop />
-
-      <AnimatePresence>
-  {windows.map((win) =>
-    !win.minimized ? (
-      <Window key={win.name} windowData={win}>
-        {renderApp(win)}
-      </Window>
-    ) : null
-  )}
-</AnimatePresence>
-
-      <Taskbar />
-    </div>
+    <TaskbarProvider>
+      <div className="w-screen h-screen overflow-hidden relative">
+        <Desktop />
+  
+        <AnimatePresence>
+          {windows.map((win) =>
+            !win.minimized ? (
+              <Window key={win.name} windowData={win}>
+                {renderApp(win)}
+              </Window>
+            ) : null
+          )}
+        </AnimatePresence>
+  
+        <Taskbar />
+      </div>
+    </TaskbarProvider>
   );
 };
 

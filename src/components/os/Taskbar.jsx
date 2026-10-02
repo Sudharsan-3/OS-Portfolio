@@ -1,75 +1,198 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import TaskbarWeather from "./taskbar/TaskbarWeather";
+import TaskbarWindows from "./taskbar/TaskbarWindows";
+import TaskbarHome from "./taskbar/TaskbarHome";
+import TaskbarControls from "./taskbar/TaskbarControls";
+import useTaskbarOrder from "./taskbar/useTaskbarOrder";
 import { useWindow } from "../../context/WindowContext";
-import { Home } from "lucide-react";
+import { useTaskbar } from "../../context/TaskbarContext";
 
 const Taskbar = () => {
-  const [time, setTime] = useState("");
-  const { activeWindow, windows, restoreWindow, openWindow } = useWindow();
+  const { windows } = useWindow();
+  const {
+    mode,
+    setMode,
+    visible,
+    setVisible,
+  } = useTaskbar();
+
+  const appNames = windows
+    .filter((window) => window.name !== "StartHere")
+    .map((window) => window.name);
+
+  const { order, moveIcon } =
+    useTaskbarOrder(appNames);
+
+  const [hovered, setHovered] = useState(false);
+  const timer = useRef(null);
 
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
+    if (mode !== "auto-hide") return;
+
+    const handleMouseMove = (event) => {
+      const fromBottom =
+        window.innerHeight - event.clientY;
+
+      if (fromBottom <= 32) {
+        setVisible(true);
+      }
     };
 
-    updateTime();
-    const interval = setInterval(updateTime, 60000);
-    return () => clearInterval(interval);
-  }, []);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () =>
+      window.removeEventListener(
+        "mousemove",
+        handleMouseMove
+      );
+  }, [mode, setVisible]);
+
+  useEffect(() => {
+    if (mode !== "auto-hide" || hovered) {
+      return;
+    }
+
+    timer.current = setTimeout(() => {
+      setVisible(false);
+    }, 1200);
+
+    return () => clearTimeout(timer.current);
+  }, [mode, hovered, setVisible]);
+
+  const showTaskbar = () => {
+    clearTimeout(timer.current);
+    setHovered(true);
+    setVisible(true);
+  };
+
+  const hideTaskbar = () => {
+    setHovered(false);
+  };
+
+  const leftIcons = order.filter(
+    (_, index) => index % 2 === 0
+  );
+
+  const rightIcons = order.filter(
+    (_, index) => index % 2 !== 0
+  );
 
   return (
-    <div className="
-      fixed bottom-3 left-1/2 -translate-x-1/2
-      h-14 px-4 rounded-2xl
-      bg-black/50 backdrop-blur-xl
-      border border-white/10 shadow-lg
-      flex items-center justify-between
-      text-white w-[95%] max-w-6xl z-50
-    ">
+    <>
+      {/* Hidden taskbar trigger */}
+      {mode === "auto-hide" && !visible && (
+        <div
+          onMouseEnter={showTaskbar}
+          className="
+            fixed
+            bottom-0
+            left-0
+            w-full
+            h-4
+            z-[1000]
+            pointer-events-auto
+          "
+        />
+      )}
+  
+      <div
+        onMouseEnter={showTaskbar}
+        onMouseLeave={hideTaskbar}
+      className={`
+        fixed
+        bottom-0
+        left-0
+        w-full
+        h-14
+        rounded-t-2xl
+        border-t border-white/15
+        bg-white/[0.07]
+        backdrop-blur-2xl
+        backdrop-saturate-150
+        shadow-[0_-8px_32px_rgba(0,0,0,0.18)]
+        z-[999]
+        transition-all
+        duration-300
+        ease-out
+        ${
+          visible
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0"
+        }
+      `}
+    >
+      <div
+        className="
+          relative
+          h-full
+          w-full
+          px-5
+        "
+      >
+        {/* Weather */}
+        <div className="
+          absolute
+          left-5
+          top-1/2
+          -translate-y-1/2
+        ">
+          <TaskbarWeather />
+        </div>
 
-      {/* LEFT */}
-      <div className="flex items-center gap-2">
+        {/* Center dock */}
+        <div className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          pointer-events-none
+        ">
+          <div className="
+            grid
+            grid-cols-[1fr_auto_1fr]
+            items-center
+            w-[58%]
+            max-w-2xl
+          ">
+            <div className="flex justify-end pr-2">
+              <TaskbarWindows
+                names={leftIcons}
+                moveIcon={moveIcon}
+              />
+            </div>
 
-        {/* START */}
-        <button
-          onClick={() => openWindow("StartHere")}
-          className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg transition hover:scale-105"
-        >
-          <Home size={18} />
-        </button>
+            <TaskbarHome />
 
-        {/* WINDOWS */}
-        {windows.map((window) => (
-          <button
-            key={window.name}
-            onClick={() => restoreWindow(window.name)}
-            className={`
-              px-3 py-1 rounded-lg text-sm transition
-              hover:scale-105 active:scale-95
-              ${
-                activeWindow === window.name
-                  ? "bg-blue-500/90 text-white shadow-md"
-                  : "bg-white/10 text-gray-200 hover:bg-white/20"
-              }
-            `}
-          >
-            {window.name === "ProjectDetails"
-              ? window.data?.title || "Project"
-              : window.name}
-          </button>
-        ))}
-      </div>
+            <div className="flex justify-start pl-2">
+              <TaskbarWindows
+                names={rightIcons}
+                moveIcon={moveIcon}
+              />
+            </div>
+          </div>
+        </div>
 
-      {/* RIGHT */}
-      <div className="text-sm text-gray-200">
-        {time}
+        {/* Right controls */}
+        <div className="
+          absolute
+          right-5
+          top-1/2
+          -translate-y-1/2
+        ">
+          <TaskbarControls
+            taskbarMode={mode}
+            setTaskbarMode={setMode}
+          />
+        </div>
       </div>
     </div>
+    </>
   );
 };
 

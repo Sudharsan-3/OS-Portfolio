@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useTaskbar } from "../../context/TaskbarContext";
 import { useWindow } from "../../context/WindowContext";
 import { motion } from "framer-motion";
 const Window = ({ windowData, children }) => {
+  
   const {
     closeWindow,
     minimizeWindow,
@@ -10,6 +12,8 @@ const Window = ({ windowData, children }) => {
     moveWindow,
     activeWindow,
   } = useWindow();
+
+const { visible: taskbarVisible } = useTaskbar();
 
   const {
     name,
@@ -67,16 +71,44 @@ const Window = ({ windowData, children }) => {
   onMouseLeave={handleMouseUp}
   style={{
     position: maximized ? "fixed" : "absolute",
+  
     top: maximized ? 0 : position.y,
+  
     left: maximized ? 0 : position.x,
+  
     width: maximized ? "100vw" : "800px",
-    height: maximized ? "100vh" : "70vh",
-    maxHeight: "90vh",
+  
+    height: maximized
+      ? taskbarVisible
+        ? "calc(100vh - 56px)"
+        : "100vh"
+      : "70vh",
+  
+    maxHeight: maximized ? "none" : "90vh",
+  
     zIndex: zIndex || 10,
   }}
-  className={`flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg ${
-    activeWindow === name ? "ring-1 ring-blue-400" : ""
-  }`}
+  className={`
+    flex
+    flex-col
+    bg-white
+    border
+    border-gray-200
+    overflow-hidden
+    shadow-lg
+    transition-[height,width]
+    duration-300
+    ${
+      maximized
+        ? "rounded-none"
+        : "rounded-xl"
+    }
+    ${
+      activeWindow === name
+        ? "ring-1 ring-blue-400"
+        : ""
+    }
+  `}
 >
       {/* TITLE BAR */}
       <div
